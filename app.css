@@ -1,0 +1,30 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    color:white;
+    font-family: Tangerine;
+    font-size: 20px;
+    position: relative;
+    font-weight: 400;
+}
+
+/***TOP PART***/
+
+.top{
+    position: relative;
+    background-image: url(sea.jpeg);
+    background-position: center;
+    background-size:cover;
+    
+}
+.budget_title{
+    
+    text-align: center;
+    height: auto;
+    
+    
+}
