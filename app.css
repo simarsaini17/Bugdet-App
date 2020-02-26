@@ -15,16 +15,65 @@ body{
 /***TOP PART***/
 
 .top{
+    height: 50vh;
     position: relative;
     background-image: url(sea.jpeg);
     background-position: center;
     background-size:cover;
     
 }
-.budget_title{
-    
-    text-align: center;
-    height: auto;
-    
+.budget{
+    position:absolute;
+    width:300px;
+    color: #fff;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
 }
+
+.budget_title{
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 20px;
+}
+.budget_value{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    letter-spacing: inherit;
+    
+}
+.budget__income--values,
+.budget__expense--values{
+    font-size: 17px;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.budget__income--values{
+    margin-bottom: 20px;
+    border:2px solid #00FA9A;
+}
+.budget__expense--values{
+    border:2px solid #FF0000;
+}
+
+.budget__income--text,
+.budget__expense--text{
+   padding-left: 8px;
+    float: left;
+    
+}
+
+.budget__expense--value,
+.budget__income--value{
+    letter-spacing: 2px;
+    margin-left: 200px;
+}
+
+/****BOTTOM PART*****/
+
+
