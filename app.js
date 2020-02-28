@@ -1,8 +1,56 @@
 //BUDGET CONTROLLER
 
 var budgetController=(function(){
-  
     
+    var MonthlyExpenses=function(selector,description,val){
+        this.selector=selector;
+        this.description=description;
+        this.val=val;
+    }
+    
+    var MonthlyIncome=function(selector,description,val){
+        this.selector=selector;
+        this.description=description;
+        this.val=val;
+    }
+    var data={
+        allItems:{
+        expense:[],
+        income:[]
+    },
+    total:{
+        expense:0,
+        income:0
+        }
+};
+    return{
+        addItem:function(type,des,val){
+    //1. creat item id
+    var newItem, ID
+    if(data.allItems[type].length===0)
+        {
+            ID=0;
+        }else if(data.allItems[type].length>0)
+            {
+                 ID=data.allItems[type][data.allItems[type].length-1].id
+                
+            }
+   
+    //2. add new item
+    if(type==='expense'){
+        newItem=new MonthlyExpenses(type,des,val);
+    }else if(type==='income'){
+        newItem=new MonthlyIncome(type,des,val);
+    }
+    //3. return new item
+     data.allItems[type].push(newItem);
+    return newItem;
+},
+    testing:function(){
+        console.log(data);
+    }
+};
+  
 })();
 
 //UI CONTROLLER 
@@ -48,11 +96,14 @@ var controller=(function(budgetCntrl,UICntrl){
     
    
     var controlAddItem=function(){
+        var data,item
           // 1. Get the field input data
       
-       var data=UICntrl.getInputData();
+      data=UICntrl.getInputData();
         console.log(data);
        // 2. add the item to the budget controller
+       item=budgetCntrl.addItem(data.type,data.description,data.val);
+        
        
        //3. add the item to UI
        
