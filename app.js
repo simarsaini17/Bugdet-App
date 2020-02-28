@@ -6,13 +6,24 @@ var budgetController=(function(){
         this.selector=selector;
         this.description=description;
         this.val=val;
-    }
+    };
     
     var MonthlyIncome=function(selector,description,val){
         this.selector=selector;
         this.description=description;
         this.val=val;
-    }
+    };
+    var calculateTotal=function(type){
+        var sum=0;
+        
+        data.allItems[type].forEach(function(curr){
+            sum += curr.val;
+        });
+        console.log(sum);
+        
+        data.total[type]=sum;
+        
+    };
     var data={
         allItems:{
         expense:[],
@@ -21,7 +32,9 @@ var budgetController=(function(){
     total:{
         expense:0,
         income:0
-        }
+    },
+    budgetTotal:0
+        
 };
     return{
         addItem:function(type,des,val){
@@ -46,12 +59,34 @@ var budgetController=(function(){
     return newItem;
 },
         
+    calculateBudget:function(){
+            //1. calculate the budget
+            calculateTotal('expense');
+            calculateTotal('income');
+            
+            //2. return the budget
+            data.budgetTotal=data.total.income-data.total.expense;
+            
+            
+        },
+        getBudget:function()
+        {
+           return {
+               totalBudget:data.budgetTotal,
+               totalInc:data.total.income,
+               totalExp:data.total.expense
+           }
+        },
+        
     testing:function(){
         console.log(data);
     }
 };
   
 })();
+
+
+
 
 //UI CONTROLLER 
 
@@ -70,7 +105,7 @@ var UIController=(function(){
             return {
                 type: document.querySelector(DOMstrings.inputType).value,
                 description:document.querySelector(DOMstrings.inputDesciption).value,
-                val: parseFloat(document.querySelector(DOMstrings.inputValue).value)
+                val:parseFloat(document.querySelector(DOMstrings.inputValue).value)
             }
         },
         addListItem:function(obj,type){
@@ -102,7 +137,6 @@ var UIController=(function(){
             itemFields=document.querySelectorAll(DOMstrings.inputDesciption + ',' +DOMstrings.inputValue);
             
             fieldsArr=Array.prototype.slice.call(itemFields);
-            console.log(fieldsArr);
             fieldsArr.forEach(function(curr,index,arr){
                 curr.value="";
             })
@@ -133,6 +167,16 @@ var controller=(function(budgetCntrl,UICntrl){
     }
     
    var updateBudget=function(){
+       
+       //1. Cacluate the budget
+       budgetCntrl.calculateBudget();
+       
+       //2. return 
+       var budget=budgetCntrl.getBudget();
+       
+       console.log(budget);
+       
+       //3. update the UI
        
        
    }
