@@ -70,7 +70,7 @@ var UIController=(function(){
             return {
                 type: document.querySelector(DOMstrings.inputType).value,
                 description:document.querySelector(DOMstrings.inputDesciption).value,
-                val: document.querySelector(DOMstrings.inputValue).value
+                val: parseFloat(document.querySelector(DOMstrings.inputValue).value)
             }
         },
         addListItem:function(obj,type){
@@ -95,6 +95,20 @@ var UIController=(function(){
             
             
         },
+        clearFields:function()
+        {
+            var itemFields,fieldsArr
+            
+            itemFields=document.querySelectorAll(DOMstrings.inputDesciption + ',' +DOMstrings.inputValue);
+            
+            fieldsArr=Array.prototype.slice.call(itemFields);
+            console.log(fieldsArr);
+            fieldsArr.forEach(function(curr,index,arr){
+                curr.value="";
+            })
+            
+            fieldsArr[0].focus();
+        },
         
         getDOMstrings:function(){
         return DOMstrings;
@@ -118,23 +132,36 @@ var controller=(function(budgetCntrl,UICntrl){
         })
     }
     
-   
+   var updateBudget=function(){
+       
+       
+   }
     var controlAddItem=function(){
         var data,item
           // 1. Get the field input data
       
       data=UICntrl.getInputData();
         console.log(data.type);
-       // 2. add the item to the budget controller
+        
+        if(data.description!="" && !isNaN(data.val) && data.val!=0)
+        {
+            // 2. add the item to the budget controller
        item=budgetCntrl.addItem(data.type,data.description,data.val);
         
-       
        //3. add the item to UI
         UICntrl.addListItem(item,data.type);
+        
+        // 4. clear fields
+        UICntrl.clearFields();
+        
+            //5. calculate the budget
+        updateBudget();
+         }
        
-       //4. calculate the budget
        
-       //5. display the budget on the UI
+       
+       
+       //6. display the budget on the UI
         
     }
    return{
