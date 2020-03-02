@@ -19,7 +19,6 @@ var budgetController=(function(){
         data.allItems[type].forEach(function(curr){
             sum += curr.val;
         });
-        console.log(sum);
         
         data.total[type]=sum;
         
@@ -98,7 +97,10 @@ var UIController=(function(){
         inputValue:'.add_value',
         inputButton:'.add_btn',
         incomeContainer:'.income_list',
-        expenseContainer:'.expense_list'
+        expenseContainer:'.expense_list',
+        budgetval:'.budget_value',
+        budgetIncomeVal:'.budget__income--value',
+        budgetExpenseVal:'.budget__expense--value'
     }
     return{
         getInputData:function(){
@@ -144,6 +146,13 @@ var UIController=(function(){
             fieldsArr[0].focus();
         },
         
+        displayBudget:function(obj){
+            document.querySelector(DOMstrings.budgetval).textContent=obj.totalBudget;
+            document.querySelector(DOMstrings.budgetIncomeVal).textContent=obj.totalInc;
+            document.querySelector(DOMstrings.budgetExpenseVal).textContent=obj.totalExp;
+            
+        },
+        
         getDOMstrings:function(){
         return DOMstrings;
     }
@@ -174,9 +183,11 @@ var controller=(function(budgetCntrl,UICntrl){
        //2. return 
        var budget=budgetCntrl.getBudget();
        
-       console.log(budget);
        
        //3. update the UI
+       UICntrl.displayBudget(budget);
+       
+       
        
        
    }
@@ -200,17 +211,19 @@ var controller=(function(budgetCntrl,UICntrl){
         
             //5. calculate the budget
         updateBudget();
-         }
+;         }
        
        
-       
-       
-       //6. display the budget on the UI
+        //6. display the budget on the UI
         
     }
    return{
        init:function(){
            console.log("Application has started");
+           UICntrl.displayBudget({totalBudget:0,
+               totalInc:0,
+               totalExp:0});
+           
            setupEventListeners();
        }
    };
