@@ -117,6 +117,26 @@ var UIController=(function(){
         budgetExpenseVal:'.budget__expense--value',
         container:'.container'
     }
+    var formatNumber=function(num,type){
+            var num, numSplit, intPart,decPart
+            //1. - and + before number
+        
+            //2. comma seprated thousands
+            num=Math.abs(num);
+            num=num.toFixed(2);
+            numSplit=num.split('.');
+            intPart=numSplit[0];
+        console.log(intPart)
+            decPart=numSplit[1];
+        console.log(decPart)
+        
+            if(intPart.length>3){
+                intPart=intPart.substring(0,intPart.length-3)+","+intPart.substr(intPart.length-3,3);
+            }
+            
+            return(type==='expense'?'-':'+')+intPart+"."+decPart;
+         }
+    
     return{
         getInputData:function(){
             return {
@@ -141,7 +161,7 @@ var UIController=(function(){
             
             newHtml=html.replace('%i%', obj.id);
             newHtml=newHtml.replace('%description%', obj.description);
-            newHtml=newHtml.replace('%val%', obj.val);
+            newHtml=newHtml.replace('%val%', formatNumber(obj.val,type));
             
             document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
             
@@ -165,11 +185,14 @@ var UIController=(function(){
         },
         
         displayBudget:function(obj){
-            document.querySelector(DOMstrings.budgetval).textContent=obj.totalBudget;
-            document.querySelector(DOMstrings.budgetIncomeVal).textContent=obj.totalInc;
-            document.querySelector(DOMstrings.budgetExpenseVal).textContent=obj.totalExp;
+            var type;
+            if(obj.totalBudget>=0? type='income': type='expense')
+            document.querySelector(DOMstrings.budgetval).textContent=formatNumber(obj.totalBudget,type);
+            document.querySelector(DOMstrings.budgetIncomeVal).textContent=formatNumber(obj.totalInc,type);
+            document.querySelector(DOMstrings.budgetExpenseVal).textContent=formatNumber(obj.totalExp,type);
             
         },
+       
         
         getDOMstrings:function(){
         return DOMstrings;
