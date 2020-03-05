@@ -2,14 +2,14 @@
 
 var budgetController=(function(){
     
-    var MonthlyExpenses=function(selector,description,val){
-        this.selector=selector;
+    var MonthlyExpenses=function(id,description,val){
+        this.id=id;
         this.description=description;
         this.val=val;
     };
     
-    var MonthlyIncome=function(selector,description,val){
-        this.selector=selector;
+    var MonthlyIncome=function(id,description,val){
+        this.id=id;
         this.description=description;
         this.val=val;
     };
@@ -37,21 +37,22 @@ var budgetController=(function(){
 };
     return{
         addItem:function(type,des,val){
-    //1. creat item id
+    //1. create item id
     var newItem, ID
     if(data.allItems[type].length===0)
         {
-            ID=0
-        }else if(data.allItems[type].length>0)
+            ID=0;
+        }
+    else if(data.allItems[type].length>0)
         {
-            ID=data.allItems[type][data.allItems[type].length-1].selector
+            ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
         }
    
     //2. add new item
     if(type==='expense'){
-        newItem=new MonthlyExpenses(type,des,val);
-    }else if(type==='income'){
-        newItem=new MonthlyIncome(type,des,val);
+        newItem= new MonthlyExpenses(ID,des,val);
+    }else if(type ==='income'){
+        newItem= new MonthlyIncome(ID,des,val);
     }
     //3. return new item
      data.allItems[type].push(newItem);
@@ -68,6 +69,19 @@ var budgetController=(function(){
             
             
         },
+        deleteItem:function(type,ID){
+            var ids,index;
+            
+            ids=data.allItems[type].map(function(current){
+                return current.id;
+            })
+            index=ids.indexOf(ID);
+            if(index!== -1){
+                data.allItems[type].splice(index,1);
+             }
+            
+        },
+        
         getBudget:function()
         {
            return {
@@ -100,7 +114,8 @@ var UIController=(function(){
         expenseContainer:'.expense_list',
         budgetval:'.budget_value',
         budgetIncomeVal:'.budget__income--value',
-        budgetExpenseVal:'.budget__expense--value'
+        budgetExpenseVal:'.budget__expense--value',
+        container:'.container'
     }
     return{
         getInputData:function(){
@@ -111,26 +126,29 @@ var UIController=(function(){
             }
         },
         addListItem:function(obj,type){
+            
             var html,element,newHtml
             if(type==='income'){
                 element=DOMstrings.incomeContainer
                     
-                html='<div class="item clearfix" id="income-%selector%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%val%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+                html='<div class="item clearfix" id="income-%i%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%val%</div><div class="item__delete"><button class="item__delete--btn"><ion-icon name="close-circle-outline"></ion-icon></button></div></div></div>'
             }else if(type==='expense'){
                 element=DOMstrings.expenseContainer
                 
-                html='<div class="item clearfix" id="expense-%selector%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%val%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+                html='<div class="item clearfix" id="expense-%i%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%val%</div><div class="item__delete"><button class="item__delete--btn"><ion-icon name="close-circle-outline"></ion-icon></button></div></div></div>'
                     
                 }
             
-            newHtml=html.replace('%selector',obj.selector);
-            newHtml=newHtml.replace('%description%',obj.description);
-            newHtml=newHtml.replace('%val%',obj.val);
+            newHtml=html.replace('%i%', obj.id);
+            newHtml=newHtml.replace('%description%', obj.description);
+            newHtml=newHtml.replace('%val%', obj.val);
             
             document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
             
-            
-            
+        },
+        deleteListItem:function(selectorID){
+            var element=document.getElementById(selectorID);
+            element.parentNode.removeChild(element);
         },
         clearFields:function()
         {
@@ -172,7 +190,8 @@ var controller=(function(budgetCntrl,UICntrl){
             if(event.keyCode===13 || event.which===13){
               controlAddItem();
            }
-        })
+        });
+        document.querySelector(DOM.container).addEventListener('click',controlDeleteItem);
     }
     
    var updateBudget=function(){
@@ -196,7 +215,6 @@ var controller=(function(budgetCntrl,UICntrl){
           // 1. Get the field input data
       
       data=UICntrl.getInputData();
-        console.log(data.type);
         
         if(data.description!="" && !isNaN(data.val) && data.val!=0)
         {
@@ -211,10 +229,32 @@ var controller=(function(budgetCntrl,UICntrl){
         
             //5. calculate the budget
         updateBudget();
-;         }
+        }
        
+        
        
         //6. display the budget on the UI
+        
+    }
+    var controlDeleteItem=function(event){
+        var itemID, splitID, type, ID
+        itemID=event.target.parentNode.parentNode.parentNode.parentNode.id;
+        if(itemID){
+            splitID=itemID.split('-');
+            type=splitID[0];
+            ID=parseInt(splitID[1]);
+            
+            //1. delete the item from array
+            budgetCntrl.deleteItem(type,ID);
+        
+            
+            //2. delete item from UI
+            UICntrl.deleteListItem(itemID);
+            
+            //3. update budget
+            updateBudget();
+            
+        }
         
     }
    return{
