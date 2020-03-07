@@ -18,7 +18,7 @@ This application helps user to manage their monthly expenses. Users can enter th
 ## Technologies Used
 
 1. JavaScript
-2. ES5^^
+2. ES5
 3. HTML5
 4. CSS3
  
