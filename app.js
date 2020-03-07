@@ -134,7 +134,7 @@ var UIController=(function(){
                 intPart=intPart.substring(0,intPart.length-3)+","+intPart.substr(intPart.length-3,3);
             }
             
-            return(type==='expense'?'-':'+')+intPart+"."+decPart;
+            return(type=='expense'? '-': '+')+intPart+"."+decPart;
          }
     
     return{
@@ -187,9 +187,11 @@ var UIController=(function(){
         displayBudget:function(obj){
             var type;
             if(obj.totalBudget>=0? type='income': type='expense')
-            document.querySelector(DOMstrings.budgetval).textContent=formatNumber(obj.totalBudget,type);
-            document.querySelector(DOMstrings.budgetIncomeVal).textContent=formatNumber(obj.totalInc,type);
-            document.querySelector(DOMstrings.budgetExpenseVal).textContent=formatNumber(obj.totalExp,type);
+            {
+                document.querySelector(DOMstrings.budgetval).textContent=formatNumber(obj.totalBudget,type);
+            }
+            document.querySelector(DOMstrings.budgetIncomeVal).textContent=formatNumber(obj.totalInc,'income');
+            document.querySelector(DOMstrings.budgetExpenseVal).textContent=formatNumber(obj.totalExp,'expense');
             
         },
        
