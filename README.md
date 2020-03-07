@@ -5,7 +5,7 @@ Simple expense calculator developed using Javascript
 This application helps user to manage their monthly expenses. Users can enter their expenses and income and can then calculate their final savings or expenditures.
 
 ## Screenshots
-![](/Screenshots/Add_Description.png)
+![Add Description](/Screenshots/Add_Description.png)
 ## Instructions
 
 1. Clone this repository locally
