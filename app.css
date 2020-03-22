@@ -4,7 +4,7 @@
     box-sizing:border-box;
 }
 
-body{
+body {
     color:white;
     font-family: Tangerine;
     font-size: 20px;
@@ -18,35 +18,33 @@ body{
     clear: both;
 }
 .right { float: right; }
-.red{color:#FF5049 !important;}
-.red-focus{border: 1px solid #FF5049 !important;}
+.red {color:#FF5049 !important;}
+.red-focus {border: 1px solid #FF5049 !important;}
 /***TOP PART***/
 
-.top{
+.top {
     height: 50vh;
     position: relative;
     background-image: url(sea.jpeg);
     background-position: center;
     background-size:cover;
-    
 }
-.budget{
+.budget {
     position:absolute;
     width:300px;
     color: #fff;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
 }
 
-.budget_title{
+.budget_title {
     margin-bottom: 10px;
     text-align: center;
     font-weight: 300;
     font-size: 20px;
 }
-.budget_value{
+.budget_value {
     text-align: center;
     font-size: 30px;
     font-weight: 300;
@@ -55,46 +53,45 @@ body{
     
 }
 .budget__income--values,
-.budget__expense--values{
+.budget__expense--values {
     font-size: 17px;
     padding: 10px;
     text-transform: uppercase;
 }
 
-.budget__income--values{
+.budget__income--values {
     margin-bottom: 20px;
     border:2px solid #00FA9A;
     border-radius:8px;
 }
-.budget__expense--values{
+.budget__expense--values {
     border:2px solid #FF0000;
     border-radius:8px;
 }
 
 .budget__income--text,
-.budget__expense--text{
+.budget__expense--text {
    padding-left: 8px;
     float: left;
-    
 }
 
 .budget__expense--value,
-.budget__income--value{
+.budget__income--value {
     letter-spacing: 2px;
     margin-left: 200px;
 }
 
 /****BOTTOM PART*****/
 
-.bar{
+.bar {
     padding:20px;
     background-color:#20B2AA;
 }
-.add_container{
+.add_container {
     margin: auto;
     text-align: center;
 }
-.add_type{
+.add_type {
     width: 50px;
     height: 50px;
     background-color: floralwhite;
@@ -104,7 +101,7 @@ body{
     transition: border 0.3s;
 }
 .add_description,
-.add_value{
+.add_value {
     height: 50px;
     border: 3px solid #e7e7e7;
     font-size: 15px;
@@ -115,30 +112,30 @@ body{
     border-radius: 8px;
 }
 
-.add_description{
+.add_description {
     width: 350px;
   }
-.add_value{
+.add_value {
     width:120px;
 }
-.add_btn{
+.add_btn {
     background: none;
     border: none;
     margin-left: 2px;
 }
 .add_btn:active { transform: translateY(5px); }
-.add_btn:focus{
+.add_btn:focus {
     outline: none;
 }
 
-.add_btn ion-icon{
+.add_btn ion-icon {
     color: red;
     height: 40px;
     width: 40px;
     vertical-align: middle;
     cursor: pointer;
 }
-.add_btn ion-icon:hover{
+.add_btn ion-icon:hover {
     color:	#00FF00;
     text-shadow: 0 0 15px #d35400;
 }
@@ -150,13 +147,13 @@ body{
     padding: 20px;
     width: 100%;
 }
-.income{
+.income {
     float:left;
     width:400px;
     margin-left:350px;
     margin-right: 10px;
 }
-.expense{
+.expense {
     float:left;
     width: 400px;
     
@@ -168,10 +165,10 @@ text-transform: uppercase;
     font-weight: 300;
     
 }
-.income_title{
+.income_title {
     color:green;
 }
-.expense_title{
+.expense_title {
     color:red;
 }
 
@@ -195,18 +192,18 @@ text-transform: uppercase;
     margin-left:200px;
     transition: transform 0.3s;
 }
-.income .item__value{
+.income .item__value {
     color: #28B9B5;
 }
 
-.expense .item__value{
+.expense .item__value {
     color: #FF5049;
 }
 
-.item__delete{
+.item__delete {
     float: left;
 }
-.item__delete--btn{
+.item__delete--btn {
     float:left;
     border: none;
     background:none;
@@ -214,17 +211,17 @@ text-transform: uppercase;
     margin-left: 2px;
     display: none;
 }
-.item__delete--btn:focus{
+.item__delete--btn:focus {
     outline: none;
 }
-.item__delete--btn ion-icon{
+.item__delete--btn ion-icon {
     color:red;
     cursor: pointer;
 }
 
-.item__delete--btn:active{transform: translateY(5px);}
-.item:hover .item__value{ transform: translateX(-20px); }
-.item:hover .item__delete--btn{
+.item__delete--btn:active {transform: translateY(5px);}
+.item:hover .item__value { transform: translateX(-20px); }
+.item:hover .item__delete--btn {
     display: inline-block;
 }
     
